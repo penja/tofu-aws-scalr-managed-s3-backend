@@ -2,6 +2,7 @@ resource "random_string" "names_suffix" {
   count   = var.bucket_name == null || var.dynamodb_table_name == null ? 1 : 0
   length  = 6
   special = false
+  upper   = false
 }
 
 locals {
@@ -75,7 +76,7 @@ resource "aws_iam_openid_connect_provider" "scalr_te" {
 
 data "aws_iam_policy_document" "assume_from_scalr" {
   statement {
-    sid     = "allow-scalr-${var.scalr_account_name}-${var.scalr_environment_name}"
+    sid     = "AllowScalrOIDCAccess"
     actions = ["sts:AssumeRoleWithWebIdentity"]
     principals {
       type        = "Federated"
