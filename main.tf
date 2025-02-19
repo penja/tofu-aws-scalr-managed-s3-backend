@@ -95,8 +95,8 @@ data "aws_iam_policy_document" "assume_from_scalr" {
   }
 }
 
-resource "aws_iam_role" "tofu" {
-  name               = "scalr-tofu"
+resource "aws_iam_role" "tofu_backend_access" {
+  name               = "scalr-tofu-backend-access"
   assume_role_policy = data.aws_iam_policy_document.assume_from_scalr.json
 
   tags = {
@@ -106,7 +106,7 @@ resource "aws_iam_role" "tofu" {
   }
 }
 
-data "aws_iam_policy_document" "tofu_permissions" {
+data "aws_iam_policy_document" "tofu_backend_permissions" {
   statement {
     sid    = "S3Access"
     effect = "Allow"
@@ -135,4 +135,10 @@ data "aws_iam_policy_document" "tofu_permissions" {
     ]
     resources = [aws_dynamodb_table.tofu_locks.arn]
   }
+}
+
+resource "aws_iam_role_policy" "tofu_backend_permissions" {
+  name   = "TofuBackendPermissions"
+  role   = aws_iam_role.tofu_backend_access.id
+  policy = data.aws_iam_policy_document.tofu_backend_permissions.json
 }

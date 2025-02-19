@@ -1,6 +1,6 @@
 output "scalr_role_arn" {
   description = "ARN of the IAM Role for Scalr"
-  value       = aws_iam_role.tofu.arn
+  value       = aws_iam_role.tofu_backend_access.arn
 }
 
 output "bucket_name" {
