@@ -1,6 +1,18 @@
 # tofu-aws-scalr-managed-s3-backend
 Opentofu module for an AWS S3 remote backend with DynamoDB locking, managed via Scalr using OpenID Connect (OIDC). It creates an S3 bucket for storing Opentofu state, a DynamoDB table for state locking, and an IAM role to allow Scalr to assume permissions via OIDC.
 
+## Cleanup: Deleting an S3 Bucket with OpenTofu
+If the bucket contains objects, OpenTofu cannot delete it. To remove all object versions before deleting the bucket, run the following:
+```sh
+bucket_name=tf-state-u8pp8z  # Replace with your bucket name
+
+aws s3api delete-objects \
+    --bucket ${bucket_name} \
+    --delete "$(aws s3api list-object-versions \
+    --bucket "${bucket_name}" \
+    --output=json \
+    --query='{Objects: Versions[].{Key:Key,VersionId:VersionId}}')"
+```
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
