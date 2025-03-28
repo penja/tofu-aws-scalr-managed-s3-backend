@@ -37,8 +37,3 @@ variable "scalr_account_name" {
   type        = string
   description = "Scalr account name"
 }
-
-variable "scalr_environment_name" {
-  type        = string
-  description = "Scalr environment name. Workloads running in this environment will have access to the state bucket and DynamoDB lock table."
-}
