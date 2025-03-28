@@ -87,9 +87,8 @@ data "aws_iam_policy_document" "assume_from_scalr" {
       variable = "${var.scalr_hostname}:sub"
       values = [
         format(
-          "account:%s:environment:%s:workspace:*",
-          var.scalr_account_name,
-          var.scalr_environment_name,
+          ""scalr:account:%s",
+          var.scalr_account_name
         )
       ]
     }
