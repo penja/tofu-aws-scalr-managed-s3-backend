@@ -97,7 +97,7 @@ data "aws_iam_policy_document" "assume_from_scalr" {
 }
 
 resource "aws_iam_role" "tofu_backend_access" {
-  name               = "scalr-ape-tofu-backend-access"
+  name               = var.aws_role_name
   assume_role_policy = data.aws_iam_policy_document.assume_from_scalr.json
 
   tags = {
