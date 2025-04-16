@@ -10,6 +10,12 @@ variable "dynamodb_table_name" {
   default     = null
 }
 
+variable "aws_role_name" {
+  description = "The aws role name"
+  type        = string
+  default     = "scalr-ape-tofu-backend-access"
+}
+
 
 variable "enable_s3_encryption" {
   description = "Enable server-side encryption for S3 bucket"
