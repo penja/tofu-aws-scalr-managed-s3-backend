@@ -1,6 +1,6 @@
 resource "random_string" "names_suffix" {
   count   = var.bucket_name == null || var.dynamodb_table_name == null ? 1 : 0
-  length  = 40
+  length  = 45
   special = false
   upper   = false
 }
